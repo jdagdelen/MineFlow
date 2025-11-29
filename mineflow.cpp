@@ -4000,7 +4000,11 @@ TEST(MFlow, LargestMinCutMMW)
 IBlockValuesSPtr ReadTestDataValues(const std::string& stem)
 {
     std::ostringstream os;
+#ifdef MVD_DATA_DIR
+    os << MVD_DATA_DIR << "/" << stem << ".dat";
+#else
     os << "../data/" << stem << ".dat";
+#endif
 
     std::ifstream input(os.str());
     std::string line;

@@ -1,3 +1,5 @@
 build/
 *.swp
 *.mexw64
+.DS_Store
+build-windows/

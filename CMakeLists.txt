@@ -50,6 +50,7 @@ add_executable(mineflow_test
 target_compile_definitions(mineflow_test
     PUBLIC 
     MVD_MINEFLOW_TESTS
+    MVD_DATA_DIR="${PROJECT_SOURCE_DIR}/data"
 )
 
 if(UNIX)
@@ -60,7 +61,17 @@ if(UNIX)
         PUBLIC
         MVD_USE_GMP
         MVD_MINEFLOW_TESTS
+        MVD_DATA_DIR="${PROJECT_SOURCE_DIR}/data"
     )
+    
+    # Find GMP library
+    if(APPLE)
+        # On macOS with Homebrew
+        set(GMP_PREFIX "/opt/homebrew/opt/gmp")
+        target_include_directories(mineflow_test_gmp PRIVATE ${GMP_PREFIX}/include)
+        target_link_directories(mineflow_test_gmp PRIVATE ${GMP_PREFIX}/lib)
+    endif()
+    
     target_link_libraries(mineflow_test_gmp
         gmp
     )
